@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt Oyo - Your Ride in Oyo State</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <a href="#home">
+                    <img src="/images/logo.svg" alt="Bolt Oyo"> 
+                    <span class="logo-text">BOLT RIDE</span>
+              </a>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#home">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <video autoplay loop muted playsinline>
+            <source src="/images/drive.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay"></div>
+        <div class="container content">
+            <h1>Your Ride in Oyo State</h1>
+            <p>Experience convenient and affordable rides across Oyo State with Bolt</p>
+        </div>
+    </section>
+
+    <section id="booking">
+        <div class="container">
+            <h2>Book Your Ride Now</h2>
+            <form id="ride-form">
+                <input type="text" id="pickup" placeholder="Enter pickup location">
+                <input type="text" id="destination" placeholder="Enter destination">
+                <button type="submit" class="button_1">Book Ride</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="boxes">
+        <div class="container">
+            <div class="box">
+                <img src="/images/fast icon.svg" alt="Fast Icon">
+                <h3>Fast Pickup</h3>
+                <p>Get a ride in minutes</p>
+            </div>
+            <div class="box">
+                <img src="/images/affordable.svg" alt="Affordable Icon">
+                <h3>Affordable</h3>
+                <p>Enjoy competitive rates</p>
+            </div>
+            <div class="box">
+                <img src="/images/safe.svg" alt="Safe Icon">
+                <h3>Safe Rides</h3>
+                <p>Your safety is our priority</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Bolt Oyo, Copyright &copy; 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rideForm = document.getElementById('ride-form');
+            const pickup = document.getElementById('pickup');
+            const destination = document.getElementById('destination');
+
+            const popularDestinations = [
+                "Ilora, Owode",
+                "Fiditi Jobele",
+                "Oja",
+                "Elekara Market",
+                "Fola Tyre",
+                "Olivet",
+                "Araromi",
+                "Kosobo",
+                "Idi Igba"        
+        
+            ];
+
+            function suggestDestination(input, suggestions) {
+                const value = input.value.toLowerCase();
+                const filteredSuggestions = suggestions.filter(suggestion =>
+                    suggestion.toLowerCase().includes(value)
+                );
+
+                const datalist = document.createElement('datalist');
+                datalist.id = input.id + '-suggestions';
+                filteredSuggestions.forEach(suggestion => {
+                    const option = document.createElement('option');
+                    option.value = suggestion;
+                    datalist.appendChild(option);
+                });
+
+                const existingDatalist = document.getElementById(datalist.id);
+                if (existingDatalist) {
+                    existingDatalist.replaceWith(datalist);
+                } else {
+                    document.body.appendChild(datalist);
+                }
+
+                input.setAttribute('list', datalist.id);
+            }
+
+            pickup.addEventListener('input', () => suggestDestination(pickup, popularDestinations));
+            destination.addEventListener('input', () => suggestDestination(destination, popularDestinations));
+
+            rideForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const pickupLocation = pickup.value;
+                const destinationLocation = destination.value;
+
+                if (!pickupLocation || !destinationLocation) {
+                    alert('Please enter both pickup and destination locations.');
+                    return;
+                }
+
+                // Simulate ride booking
+                const estimatedTime = Math.floor(Math.random() * 15) + 5; // 5-20 minutes
+                const estimatedFare = Math.floor(Math.random() * 2000) + 500; // 500-2500 Naira
+
+                alert(`Ride booked successfully!
+                    From: ${pickupLocation}
+                    To: ${destinationLocation}
+                    Estimated arrival time: ${estimatedTime} minutes
+                    Estimated fare: ₦${estimatedFare}`);
+
+                // Clear form
+                pickup.value = '';
+                destination.value = '';
+            });
+        });
+    </script>
+</body>
+</html>
+
+
